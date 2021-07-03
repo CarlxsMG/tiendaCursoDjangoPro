@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Local apps
     path('', include('applications.users.urls')),
+    path('', include('applications.producto.urls')),
 ]
