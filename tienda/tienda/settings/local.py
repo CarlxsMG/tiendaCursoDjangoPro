@@ -1,4 +1,13 @@
+# Third Party import
+import firebase_admin
+from firebase_admin import credentials, auth
+
+# Local imports
 from .base import *
+
+
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -25,3 +34,7 @@ STATICFILES_DIRS = [BASE_DIR.child('static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR.child('media')
+
+# Firebase decodificator
+cred = credentials.RefreshToken('firebase-key.json')
+firebase_admin.initialize_app(cred)

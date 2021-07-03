@@ -2,3 +2,9 @@
 tienda/applications/home/migrations/*
 #
 tienda/applications/users/migrations/*
+
+*/*.pyc
+*.pyc
+*/__pycache__
+__pycache__
+migrations
