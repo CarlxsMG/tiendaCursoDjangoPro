@@ -8,3 +8,8 @@ class ProductManager(models.Manager):
         return self.filter(
             user_created=user,
         )
+
+    def productos_con_stok(self):
+        return self.filter(
+            stok__gt=0,
+        ).order_by('-num_sales')
