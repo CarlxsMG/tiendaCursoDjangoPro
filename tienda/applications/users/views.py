@@ -57,4 +57,9 @@ class GoogleLoginView(APIView):
             'city': usuario.city
         }
 
-        return token
+        return Response(
+            {
+                'token': token.key,
+                'user': userGet
+            }
+        )
