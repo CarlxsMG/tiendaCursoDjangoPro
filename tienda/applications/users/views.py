@@ -7,6 +7,8 @@ from django.views.generic import TemplateView
 
 # Django Rest imports
 from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 
 # Local imports
 from .serializers import LoginSocialSerializer
@@ -41,5 +43,18 @@ class GoogleLoginView(APIView):
                 'is_active': True
             }
         )
+        if created:
+            token = Token.objects.create(user=usuario)
+        else:
+            token = Token.objects.get(user=usuario)
 
-        return None
+        userGet = {
+            'id': usuario.pk,
+            'email': usuario.email,
+            'full_name': usuario.full_name,
+            'genero': usuario.genero,
+            'date_birth': usuario.date_birth,
+            'city': usuario.city
+        }
+
+        return token
