@@ -1,7 +1,6 @@
 # Third Party import
 import firebase_admin
-from firebase_admin import credentials, auth
-
+from firebase_admin import credentials
 # Local imports
 from .base import *
 
@@ -36,5 +35,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR.child('media')
 
 # Firebase decodificator
-cred = credentials.RefreshToken('firebase-key.json')
-firebase_admin.initialize_app(cred)
+cred = credentials.Certificate('firebasekey.json')
+default_app = firebase_admin.initialize_app(cred)
