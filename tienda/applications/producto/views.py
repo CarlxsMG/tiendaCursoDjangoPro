@@ -5,6 +5,8 @@ from django.shortcuts import render
 from rest_framework.generics import(
     ListAPIView,
 )
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # Local imports
 from .models import Product
@@ -14,6 +16,10 @@ from .serializers import ProductSerializer
 
 class ListProductUser(ListAPIView):
     serializer_class = ProductSerializer
+    authentication_classes = (TokenAuthentication,) #Descifra e identifica al usuario
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Product.objects.all()
+        # Recuperar usuario
+        user = self.request.user
+        return Product.objects.productos_por_user(user)
