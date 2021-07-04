@@ -54,8 +54,12 @@ class FiltrarProductos(ListAPIView):
     def get_queryset(self):
 
         # Esto es lo mismo que self.request.GET.get('gendre') pero con RestFramework
-        varon = self.request.query_params.get('man', None)
-        mujer = self.request.query_params.get('woman', None)
-        nombre = self.request.query_params.get('mane', None)
+        # varon = self.request.query_params.get('man', None)
+        # mujer = self.request.query_params.get('woman', None)
+        # nombre = self.request.query_params.get('mane', None)
 
-        return []
+        return Product.objects.filtrar_productos(
+            man=self.request.query_params.get('man', None),
+            woman=self.request.query_params.get('woman', None),
+            name=self.request.query_params.get('mane', None)
+        )
