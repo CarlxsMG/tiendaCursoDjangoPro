@@ -22,7 +22,7 @@ class ListProductUser(ListAPIView):
     def get_queryset(self):
         # Recuperar usuario
         user = self.request.user
-        
+
         return Product.objects.productos_por_user(user)
 
 
@@ -46,3 +46,16 @@ class ListProductGenero(ListAPIView):
         genero = self.kwargs['gender']
 
         return Product.objects.productos_por_genero(genero)
+
+
+class FiltrarProductos(ListAPIView):
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+
+        # Esto es lo mismo que self.request.GET.get('gendre') pero con RestFramework
+        varon = self.request.query_params.get('man', None)
+        mujer = self.request.query_params.get('woman', None)
+        nombre = self.request.query_params.get('mane', None)
+
+        return []
