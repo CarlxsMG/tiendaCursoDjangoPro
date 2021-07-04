@@ -13,3 +13,23 @@ class ProductManager(models.Manager):
         return self.filter(
             stok__gt=0,
         ).order_by('-num_sales')
+
+
+    def productos_por_genero(self, genero):
+        # Lista productos por genero
+        if genero == 'm':
+            mujer = True
+            varon = False
+
+        elif genero == 'v':
+            mujer = True
+            varon = False
+
+        else:
+            mujer = True
+            varon = True
+
+        return self.filter(
+            woman=mujer,
+            man=varon
+        ).order_by('created')
