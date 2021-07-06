@@ -40,5 +40,39 @@ class DetalleVentaProductoSerializer(serializers.ModelSerializer):
         model = SaleDetail
         fields = (
             'id',
-            'sale'
+            'sale',
+            'product',
+            'count',
+            'price_purchase',
+            'price_sale',
         )
+
+
+class ProductDetailSerializer(serializers.Serializer):
+
+    pk = serializers.IntegerField()
+    count = serializers.IntegerField()
+
+
+class ProcesoVentaSerializer(serializers.Serializer):
+
+    type_invoce = serializers.CharField()
+    type_payment = serializers.CharField()
+    adreese_send = serializers.CharField()
+
+    productos = ProductDetailSerializer(many=True)
+
+
+class ArrayIntegerSerializer(serializers.ListField):
+
+    child = serializers.IntegerField()
+
+
+class ProcesoVentaSerializer2(serializers.Serializer):
+
+    type_invoce = serializers.CharField()
+    type_payment = serializers.CharField()
+    adreese_send = serializers.CharField()
+
+    productos = ArrayIntegerSerializer()
+    cantidades = ArrayIntegerSerializer()
