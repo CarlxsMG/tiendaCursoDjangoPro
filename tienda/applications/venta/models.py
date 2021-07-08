@@ -24,6 +24,8 @@ class Sale(TimeStampedModel):
         ('2', 'CONTRAENTREGA'),
     )
 
+    TIPO_PAYMENT_OPTIONS = [pay[0] for pay in TIPO_PAYMENT]
+
     FLAT_STATE = (
         ('0', 'En Proceso'),
         ('1', 'En Envio'),
