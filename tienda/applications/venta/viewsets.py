@@ -1,11 +1,15 @@
 # Python imports
+
+# Django imports
 from django.utils.timezone import now
+from django.shortcuts import get_object_or_404
 
 # Django Rest Framework imports
 from rest_framework import viewsets
+from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 # Local imports
 from .serializers import ProcesoVentaSerializer2, VentaReporteSerializers
@@ -17,8 +21,15 @@ from applications.producto.models import Product
 class VentasViewSet(viewsets.ViewSet):
     queryset = Sale.objects.all()
     
-    # authentication_classes = (TokenAuthentication,)
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
+
+    def get_permissions(self):
+        if (self.action=='list') or (self.action=='retrieve'):
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+
+        return [permission() for permission in permission_classes]
 
     def list(self, request): # Requerido para el viewsets.ViewSet
         queryset = Sale.objects.all()
@@ -77,7 +88,7 @@ class VentasViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None): # Requerido para el viewsets.ViewSet
 
-        venta = Sale.objects.get(id=pk)
+        venta = get_object_or_404(Sale.objects.all(), pk=pk)
 
         serializer = VentaReporteSerializers(venta)
         return Response(serializer.data)
