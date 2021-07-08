@@ -17,8 +17,8 @@ from applications.producto.models import Product
 class VentasViewSet(viewsets.ViewSet):
     queryset = Sale.objects.all()
     
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = (TokenAuthentication,)
+    # permission_classes = [IsAuthenticated]
 
     def list(self, request): # Requerido para el viewsets.ViewSet
         queryset = Sale.objects.all()
@@ -76,7 +76,11 @@ class VentasViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None): # Requerido para el viewsets.ViewSet
-        return Response({'ok':'ok2'})
+
+        venta = Sale.objects.get(id=pk)
+
+        serializer = VentaReporteSerializers(venta)
+        return Response(serializer.data)
 
     def update(self, request, pk=None): # opcional para el viewsets.ViewSet
         return Response({'ok':'ok3'})
