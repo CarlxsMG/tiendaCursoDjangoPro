@@ -7,3 +7,6 @@ from . import viewsets
 
 # Code
 router = DefaultRouter()
+router.register(r'colors', viewsets.ColorViewSet, basename="colors")
+
+urlpatterns = router.urls
