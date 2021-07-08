@@ -24,5 +24,6 @@ urlpatterns = [
     path('', include('applications.producto.urls')),
     path('', include('applications.venta.urls')),
     # Local routers
-    path('', include('applications.producto.routers'))
+    path('', include('applications.producto.routers')),
+    path('', include('applications.venta.routers'))
 ]
